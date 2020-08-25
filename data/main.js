@@ -400,3 +400,36 @@ trim.minusControl3BottomVal = function(val) {
   console.log("Panel 3 - Trim Bottom -")
   ui.buttonAnimation("trimCol3BottomLeft");
 }
+
+/* ------------------------------------------------------------------------------------------ */
+// WebSocket
+/* ------------------------------------------------------------------------------------------ */
+
+//var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+var websocket = new WebSocket('ws://192.168.0.191:81/', ['arduino']);
+
+
+websocket.onopen = function () {
+    websocket.send("{'servo1':50}")
+};
+websocket.onerror = function (error) {
+    console.log('WebSocket Error ', error);
+};
+websocket.onmessage = function (e) {
+    console.log(e.data);
+    data = JSON.parse(e.data);
+
+    if (data.hasOwnProperty("wifiSignalPercentual")){
+      document.getElementById("panelSignal").innerHTML = data['wifiSignalPercentual'] + '%';
+    }
+    if (data.hasOwnProperty("voltage")){
+      document.getElementById("panelVoltage").innerHTML = data['voltage'];
+    }
+
+    //websocket.send(msg);
+};
+websocket.onclose = function () {
+    console.log('WebSocket connection closed');
+};
+
+//websocket.send("{'servo1':90}");

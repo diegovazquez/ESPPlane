@@ -10,6 +10,7 @@
 #include "websocket.h"
 #include "webserver.h"
 
+
 void setup() {
   delay(2000);
   // Serial port
@@ -42,7 +43,7 @@ void loop() {
   ArduinoOTA.handle();
 
   // WebSocket
-  webSocket.loop(); 
+  loopWebSocket();
 
   // WebServer
   server.handleClient();
