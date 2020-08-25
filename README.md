@@ -55,19 +55,33 @@ Tools list:
 ![diagrams](doc/diagram_components.png)
 ![diagrams](doc/diagram.png)
 
-## Software
-
-### Install Firmware to ESP8266
+## **Install Firmware to ESP8266**
 
 1. Install CH340G Serial Driver - [Windows](https://www.instructables.com/id/Instalar-driver-para-CH340G/) - [Mac](https://kig.re/2014/12/31/how-to-use-arduino-nano-mini-pro-with-CH340G-on-mac-osx-yosemite.html) - Included in linux
 2. Install Visual Studio Code - [Download](https://code.visualstudio.com/)
 3. Install Plataform IO - [Instructions](https://platformio.org/install/ide?install=vscode)
 4. Download Repository  
 ![photo](doc/download_repo.png)
-5. Edit src/configuration.h and set the wifi configuration
+5. Copy configuration.example to src/configuration.h and set the wifi configuration (see firmware configuration)
 6. Connect Wemos D1 Mini USB
 7. Build and Upload the code  
 ![photo](doc/plataformio_build2.png)
+
+## Firmware Configuration
+
+Edit src/configuration.h
+
+**WIFI_MODE:** 
+* JOIN: Join a existing Access Point
+* AP: Create a password protected Access Point
+* OPENAP: Create a open Access Point
+
+**WIFI_NAME:** Name of the Wifi Network  
+**WIFI_PASS:** Password of the Wifi Network (not used in OPENAP)
+
+        #define WIFI_MODE           "AP"     
+        #define WIFI_NAME           "PLANE"      
+        #define WIFI_PASS           "12345678"  
 
 ## Control
 
@@ -76,7 +90,7 @@ The control is a Webpage, can go full screen and is resposibe.
 ![photo](doc/v001_control_horizontal.png)
 ![photo](doc/v001_control_vertical.png)
 
-### Javascript Configuration
+## Javascript Configuration
 
 GamePad Axis Feedback configuration 
 
