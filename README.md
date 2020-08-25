@@ -8,7 +8,7 @@ Sorry for my english, i'm learning.
 
 ## The Idea
 
-The idea is a simple wifi plane, controlled whit a Phone using a Touch Screen or a Bluetooth Joystick
+The idea is a simple wifi plane, controlled whit a Phone using a Touch Screen or a Bluetooth Joystick and a ESP8266
 
 ![idea](doc/the_plan.png)
 
@@ -79,6 +79,8 @@ Edit src/configuration.h
 **WIFI_NAME:** Name of the Wifi Network  
 **WIFI_PASS:** Password of the Wifi Network (not used in OPENAP)
 
+Example:
+
         #define WIFI_MODE           "AP"     
         #define WIFI_NAME           "PLANE"      
         #define WIFI_PASS           "12345678"  
@@ -87,7 +89,10 @@ Edit src/configuration.h
 
 The control is a Webpage, can go full screen and is resposibe.
 
-![photo](doc/v001_control_horizontal.png)
+Horizontal Control  
+![photo](doc/v001_control_horizontal.png) 
+
+Vertical Control  
 ![photo](doc/v001_control_vertical.png)
 
 ## Javascript Configuration
