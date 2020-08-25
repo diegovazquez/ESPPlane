@@ -1,0 +1,14 @@
+// -- WIFI --
+#define WIFI_MODE           "AP"         // JOIN (configure in code) // AP // OPENAP
+#define WIFI_NAME           "PLANE"      // AP Name For mode JOIN or AP
+#define WIFI_PASS           "12345678"   // AP Password For mode JOIN or 
+
+// -- OTA -- 
+#define OTA_NAME            "OTANAME"      
+#define OTA_PASS            "OTAPASS"
+
+// -- SERVO -- 
+#define SERVO1_PIN          14  // Wemos D5  
+#define SERVO2_PIN          12  // Wemos D6
+#define SERVO3_PIN          13  // Wemos D7
+#define SERVO4_PIN          15  // Wemos D8

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP Plane</title>
+  <!-- <link href='main.css' rel='stylesheet' type='text/css'>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="144x144"  href="/favicon-144x144.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json"> -->
+  <meta name="theme-color" content="#00878f">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+
+  <link rel="icon" type="image/png" href='data:image/png;base64,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'>
+
+
+  <style>
+    @font-face {
+      font-family: sevenSegment;
+      src: url('Seven_Segment.ttf')  format('truetype');
+    }
+
+    html, body {
+      overflow: hidden; 
+      background: rgb(16, 14, 35);
+      width: 100wv; 
+      height: 100vh;
+      margin: 0px;
+      color: azure;
+      font-size: 4vh;
+
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+    }
+    .panel {
+      width: 40vw; 
+      height: 100vh; 
+      float: left;
+    }
+    .centerPanel {
+      width: 20vw; 
+      height: 100vh; 
+      float: left;
+      padding-top: 1vh;
+      padding-bottom: 1vh;
+    }
+    .segment {
+      color: brown;
+      font-size: 10vh;
+      text-align: center;
+      font-family: sevenSegment;
+    }
+    .card {
+      background: rgb(41, 41, 61);
+      text-align: center;
+      margin: 1vh 1vw 1vh 1vw;
+      padding: 1vh 1vw 1vh 1vw;
+      font-weight: normal;
+      font-family: Sans-serif;
+      border-radius: 2vh;
+    }
+    .bigCard {
+      margin: 2vh 0vw 2vh 0vw;
+      padding: 2vh 2vw 2vh 2vw;
+    }
+
+    /* Trims */
+    .trimButton {
+      width: 5vw;
+      float: left;
+    }
+    .trimLabel {
+      width: 10vw;
+      margin-left: 5vw;
+      margin-right: 5vw;
+      float: left;
+    }
+    /* Control */
+    .control {
+      position: absolute;
+      width: 36vw;
+      height: 78vh;
+      float: left;
+      top: 8vh;
+      z-index: 99;
+      background: none;
+    }
+    .spacer {
+      width: 36vw;
+      height: 78vh;
+      float: left;
+      top: 8vh;
+    }
+
+
+    @media (orientation: portrait) {
+      html, body {
+        font-size: 2vh;
+      }
+      .panel {
+        width: 100vw; 
+        height: 42vh;
+      }
+      .centerPanel {
+        width: 100vw; 
+        height: 16vh;
+        padding: 0vh 1vw 0vh 1vw;
+      }
+      .segment {
+        font-size: 5vh;
+      }
+      .card {
+        border-radius: 2vw;
+      }
+      .bigCard {
+        margin: 1vh 1vw 0vh 0vw;
+        padding: 1vh 1vw 1vh 0vw;
+        width: 31vw;
+        float: left;
+      }
+      /* Trims */
+      .trimButton {
+        width: 10vw;
+        float: left;
+      }
+      .trimLabel {
+        width: 42vw;
+        margin-left: 14vw;
+        margin-right: 14vw;
+      }
+      /* Control */
+      #control1 {
+        width: 96vw;
+        height: 28vh;
+        top: 6vh;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        background: none;
+      }
+      #control2 {
+        width: 96vw;
+        height: 28vh;
+        top: 64vh;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        background: none;
+      }
+      .spacer {
+        width: 96vw;
+        height: 28vh;
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
+
+    }
+    .joystick {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      background: rgba(0, 0, 255, 0.5);;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    .joystickFeedback {
+      position: relative;
+      width: 76px;
+      height: 76px;
+      background: rgba(0, 0, 255, 0.75);;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 38px;
+    }
+
+    #joystick1 {
+      display: none; 
+    }
+
+    #joystick2 {
+      display: none; 
+    }
+
+  </style>  
+
+
+</head>
+<body>  
+  <div class="panel">
+    <div class="card trimButton" id="trimCol1TopLeft"><</div>
+    <div class="card trimLabel"  id="trimCol1TopLabel">TRIM</div>
+    <div class="card trimButton" id="trimCol1TopRight">></div>
+
+    <div class="card control" id="control1"></div>
+    <div class="card spacer">
+      <div class="joystick" id="joystick1">
+        <div class="joystickFeedback" id="joystickFeedback1">
+        </div> 
+      </div>  
+    </div>
+
+    <div class="card trimButton"  id="trimCol1BottomLeft"><div style="transform: rotate(-90deg);"><</div></div>
+    <div class="card trimLabel"   id="trimCol1BottomLabel">TRIM</div>
+    <div class="card trimButton"  id="trimCol1BottomRight"><div style="transform: rotate(-90deg);">></div></div>
+  </div>
+  <div class="centerPanel">
+    <div class="card bigCard" id="btnLockMenu">LOCK</div>
+    <div class="card bigCard" id="btnFullScreen">FULLSCREEN</div>
+    <div class="card bigCard" id="btnJoystick">JOYSTICK</div>
+    <div class="card bigCard">
+      SIGNAL
+      <div class="segment" id="panelSignal">--</div>
+    </div>
+    <div class="card bigCard">
+      VOLTAGE
+      <div class="segment" id="panelVoltage">--</div>
+    </div>
+    <div class="card bigCard">
+      LATENCY
+      <div class="segment" id="panelLatency">--</div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="card trimButton" id="trimCol3TopLeft"><</div>
+    <div class="card trimLabel"  id="trimCol3TopLabel">TRIM</div>
+    <div class="card trimButton" id="trimCol3TopRight">></div>
+
+    <div class="card control" id="control2"></div>
+    <div class="card spacer">
+      <div class="joystick" id="joystick2">
+        <div class="joystickFeedback" id="joystickFeedback2">
+        </div> 
+      </div> 
+    </div>
+
+    <div class="card trimButton" id="trimCol3BottomLeft"><div style="transform: rotate(-90deg);"><</div></div>
+    <div class="card trimLabel"  id="trimCol3BottomLabel">TRIM</div>
+    <div class="card trimButton" id="trimCol3BottomRight"><div style="transform: rotate(-90deg);">></div></div>
+  </div>
+
+  <script src="nipple.js" type="text/javascript"></script>
+  <script src="joypad.min.js" type="text/javascript"></script>
+
+  <script src="main.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+  if (typeof config == "undefined") { config = function() {} }
+
+  // Config
+  
+  // GAMEPAD
+  config.gamepadAxis12FeedbackStyle = 'PowerStick';   // Circle - Square - PowerStick
+  config.gamepadAxis34FeedbackStyle = 'Square';       // Circle - Square - PowerStick
+
+  config.gamepadPanel1TopTrimPlus = 'button_15';      // Map trim (left top +) to gamepad buttom 
+  config.gamepadPanel1TopTrimMinus = 'button_14';     // Map trim (left top -) to gamepad buttom 
+  config.gamepadPanel1BottomTrimPlus = 'button_12';   // Map trim (left bottom +) to gamepad buttom 
+  config.gamepadPanel1BottomTrimMinus = 'button_13';  // Map trim (left bottom -) to gamepad buttom 
+  config.gamepadPanel3TopTrimPlus = 'button_1';       // Map trim (Right top +) to gamepad buttom 
+  config.gamepadPanel3TopTrimMinus = 'button_2';      // Map trim (Right top -) to gamepad buttom 
+  config.gamepadPanel3BottomTrimPlus = 'button_3';    // Map trim (Right bottom +) to gamepad buttom 
+  config.gamepadPanel3BottomTrimMinus = 'button_0';   // Map trim (Right bottom -) to gamepad buttom 
+  
+
+  /*
+  //var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+  var connection = new WebSocket('ws://192.168.0.191:81/', ['arduino']);
+
+  connection.onopen = function () {
+      connection.send("{'servo1':0}")
+  };
+  connection.onerror = function (error) {
+      console.log('WebSocket Error ', error);
+  };
+  connection.onmessage = function (e) {
+      console.log('Server: ', e.data);
+  };
+  connection.onclose = function () {
+      console.log('WebSocket connection closed');
+  };
+
+  //connection.send("{'servo1':90}");
+  */
+  </script>
+
+  <script type="text/javascript">
+  
+ 
+  
+  </script>
+
+</body>
+</html>
