@@ -1,4 +1,12 @@
 /* ------------------------------------------------------------------------------------------ */
+// On document ready
+/* ------------------------------------------------------------------------------------------ */
+
+document.addEventListener("DOMContentLoaded", function() {
+  trim.loadFromLocalStorage();
+});
+
+/* ------------------------------------------------------------------------------------------ */
 // Config
 /* ------------------------------------------------------------------------------------------ */
 if (typeof config == "undefined") { config = function() {} }
@@ -362,43 +370,95 @@ if (typeof trim == "undefined") { trim = function() {} }
 
 trim.control1TopVal = 0
 trim.control1BottomVal = 0
-trim.control2TopVal = 0
-trim.control2BottomVal = 0
+trim.control3TopVal = 0
+trim.control3BottomVal = 0
+trim.step = 2
+
+trim.loadFromLocalStorage = function() {
+  if (localStorage.getItem('control1TopVal') !== null) {
+    trim.control1TopVal = Number(localStorage.getItem('control1TopVal'));
+    document.getElementById("trimCol1TopLabel").innerHTML = trim.control1TopVal;
+  }
+  if (localStorage.getItem('control1BottomVal') !== null) {
+    trim.control1BottomVal = Number(localStorage.getItem('control1BottomVal'));
+    document.getElementById("trimCol1BottomLabel").innerHTML = trim.control1BottomVal;
+  }
+  if (localStorage.getItem('control1TopVal') !== null) {
+    trim.control3TopVal = Number(localStorage.getItem('control3TopVal'));
+    document.getElementById("trimCol3TopLabel").innerHTML = trim.control3TopVal;
+  }
+  if (localStorage.getItem('control3BottomVal') !== null) {
+    trim.control3BottomVal = Number(localStorage.getItem('control3BottomVal'));
+    document.getElementById("trimCol3BottomLabel").innerHTML = trim.control3BottomVal;
+  }
+} 
 
 trim.plusControl1TopVal = function(val) {
   console.log("Panel 1 - Trim Top +")
   ui.buttonAnimation("trimCol1TopRight");
+
+  trim.control1TopVal = trim.control1TopVal + trim.step;
+  localStorage.setItem('control1TopVal', trim.control1TopVal);
+  document.getElementById("trimCol1TopLabel").innerHTML = trim.control1TopVal;
 }
 trim.minusControl1TopVal = function(val) {
   console.log("Panel 1 - Trim Top -")
   ui.buttonAnimation("trimCol1TopLeft");
+  
+  trim.control1TopVal = trim.control1TopVal - trim.step;
+  localStorage.setItem('control1TopVal', trim.control1TopVal);
+  document.getElementById("trimCol1TopLabel").innerHTML = trim.control1TopVal;
 }
 
 trim.plusControl1BottomVal = function(val) {
   console.log("Panel 1 - Trim Bottom +")
   ui.buttonAnimation("trimCol1BottomRight");
+
+  trim.control1BottomVal = trim.control1BottomVal + trim.step;
+  localStorage.setItem('control1BottomVal', trim.control1BottomVal);
+  document.getElementById("trimCol1BottomLabel").innerHTML = trim.control1BottomVal;
 }
 trim.minusControl1BottomVal = function(val) {
   console.log("Panel 1 - Trim Bottom -")
   ui.buttonAnimation("trimCol1BottomLeft"); 
+
+  trim.control1BottomVal = trim.control1BottomVal - trim.step;
+  localStorage.setItem('control1BottomVal', trim.control1BottomVal);
+  document.getElementById("trimCol1BottomLabel").innerHTML = trim.control1BottomVal;
 }
 
 trim.plusControl3TopVal = function(val) {
   console.log("Panel 3 - Trim Top +")
   ui.buttonAnimation("trimCol3TopRight");
+
+  trim.control3TopVal = trim.control3TopVal + trim.step;
+  localStorage.setItem('control3TopVal', trim.control3TopVal);
+  document.getElementById("trimCol3TopLabel").innerHTML = trim.control3TopVal;
 }
 trim.minusControl3TopVal = function(val) {
   console.log("Panel 3 - Trim Top -")
   ui.buttonAnimation("trimCol3TopLeft");
+
+  trim.control3TopVal = trim.control3TopVal - trim.step;
+  localStorage.setItem('control3TopVal', trim.control3TopVal);
+  document.getElementById("trimCol3TopLabel").innerHTML = trim.control3TopVal;
 }
 
 trim.plusControl3BottomVal = function(val) {
   console.log("Panel 3 - Trim Bottom +")
   ui.buttonAnimation("trimCol3BottomRight");
+
+  trim.control3BottomVal = trim.control3BottomVal + trim.step;
+  localStorage.setItem('control3BottomVal', trim.control3BottomVal);
+  document.getElementById("trimCol3BottomLabel").innerHTML = trim.control3BottomVal;
 }
 trim.minusControl3BottomVal = function(val) {
   console.log("Panel 3 - Trim Bottom -")
   ui.buttonAnimation("trimCol3BottomLeft");
+
+  trim.control3BottomVal = trim.control3BottomVal - trim.step;
+  localStorage.setItem('control3BottomVal', trim.control3BottomVal);
+  document.getElementById("trimCol3BottomLabel").innerHTML = trim.control3BottomVal;
 }
 
 /* ------------------------------------------------------------------------------------------ */
