@@ -431,7 +431,6 @@ websocket.onmessage = function (e) {
     if (data.hasOwnProperty("serial")){
       currentTime = Date.now().toString().substring(8,99);
       responceTime = data['serial'];
-      console.log(currentTime, responceTime)
       latency = Math.round((currentTime - responceTime));
       document.getElementById("panelLatency").innerHTML = latency;
     }
