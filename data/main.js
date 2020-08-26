@@ -409,17 +409,23 @@ trim.minusControl3BottomVal = function(val) {
 var websocket = new WebSocket('ws://192.168.0.191:81/', ['arduino']);
 
 websocket.latencyTestLoopEvery = 500      //Miliseconds
-websocket.latencyTestLoopEnabled = true;
+websocket.latencyTestLoopEnabled = false;
 
 
 websocket.onopen = function () {
     console.log("WebSocket Connected");
+    websocket.latencyTestLoopEnabled = true
 };
 websocket.onerror = function (error) {
     console.log('WebSocket Error ', error);
 };
 websocket.onmessage = function (e) {
-    data = JSON.parse(e.data);
+    try {
+      data = JSON.parse(e.data);
+    } catch (error) {
+      console.log(e.data)
+      console.error(error);
+    }
 
     if (data.hasOwnProperty("wifiSignalPercentual")){
       document.getElementById("panelSignal").innerHTML = data['wifiSignalPercentual'] + '%';
@@ -429,7 +435,7 @@ websocket.onmessage = function (e) {
     }
 
     if (data.hasOwnProperty("serial")){
-      currentTime = Date.now().toString().substring(8,99);
+      currentTime = Date.now().toString();
       responceTime = data['serial'];
       latency = Math.round((currentTime - responceTime));
       document.getElementById("panelLatency").innerHTML = latency;
@@ -437,11 +443,12 @@ websocket.onmessage = function (e) {
 };
 websocket.onclose = function () {
     console.log('WebSocket connection closed');
+    websocket.latencyTestLoopEnabled = false
 };
 
 websocket.latencyTestLoop  = function () {
   if (websocket.latencyTestLoopEnabled) {
-    currentTime = Date.now().toString().substring(8,99);
+    currentTime = Date.now().toString();
     websocket.send(JSON.stringify({"serial": currentTime}))
   }
 }
