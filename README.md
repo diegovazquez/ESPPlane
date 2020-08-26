@@ -97,7 +97,7 @@ Vertical Control
 
 ## Javascript Configuration
 
-GamePad Axis Feedback configuration 
+**GamePad Axis Feedback configuration**
 
         config.gamepadAxis12FeedbackStyle = 'PowerStick';   
         config.gamepadAxis34FeedbackStyle = 'Square';           
@@ -108,7 +108,7 @@ Options: Circular - Square - PowerStick
 ![photo](doc/Square.gif)
 ![photo](doc/PowerStick.gif)
 
-Gamepad Trim buttoms Mapping:
+**Gamepad Trim buttoms Mapping:**
 
         config.gamepadPanel1TopTrimPlus = 'button_15'; 
         config.gamepadPanel1TopTrimMinus = 'button_14';  
@@ -123,6 +123,17 @@ To test you gamepad buttons you can use this [link](
 https://gamepad-tester.com/)
 
 ![photo](doc/gamepadTester.png)
+
+**Wifi Signal Telemetry Style:**
+
+        config.telemetryWifiSignalStyle = 'Percentual';  
+
+Options: Percentual - dBm   
+![photo](doc/telemetry_wifi_signal_percentual.png)
+![photo](doc/telemetry_wifi_signal_db.png)
+
+Links : [Wifi Singal Streng Explained](https://eyesaas.com/wi-fi-signal-strength/#:~:text=Wireless%20signal%20strength%20is%20measured,expressed%20only%20as%20negative%20values.&text=Maximum%20signal%20strength%2C%20you%20are,be%20considered%20excellent%20signal%20strength.)
+
 
 # Libraries 
 

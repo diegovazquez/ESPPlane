@@ -428,7 +428,11 @@ websocket.onmessage = function (e) {
     }
 
     if (data.hasOwnProperty("wifiSignalPercentual")){
-      document.getElementById("panelSignal").innerHTML = data['wifiSignalPercentual'] + '%';
+      if ( config.telemetryWifiSignalStyle == 'Percentual') {
+        document.getElementById("panelSignal").innerHTML = data['wifiSignalPercentual'] + '%';
+      } else {
+        document.getElementById("panelSignal").innerHTML = data['wifiSignalDbm'];
+      }
     }
     if (data.hasOwnProperty("voltage")){
       document.getElementById("panelVoltage").innerHTML = data['voltage'];

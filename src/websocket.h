@@ -5,11 +5,13 @@ StaticJsonDocument<200> msgDecoded;
 
 WebSocketsServer webSocket(81);    // create a websocket server on port 81
 
-const int RSSI_MAX = -50;// define maximum strength of signal in dBm
-const int RSSI_MIN = -100;// define minimum strength of signal in dBm
+const int RSSI_MAX = -50;   // define maximum strength of signal in dBm
+const int RSSI_MIN = -85;  // define minimum strength of signal in dBm
 
+// TO-DO Support multiple clients
 int clientNum = 0;
 int loopEnabled = 0;
+
 long telemetryInterval = 500;
 long telemetryPreviousMillis = 0;
 
@@ -109,7 +111,7 @@ void sendTelemetry() {
         
         // Response
         String response = "{ \"wifiSignalPercentual\":" + String(wifiSignalPercentual) + "," +
-                          "  \"wifiSignalDb\":" +  String(wifiSignalDb) + "," +
+                          "  \"wifiSignalDbm\":" +  String(wifiSignalDb) + "," +
                           "  \"voltage\":" + voltage + "}";
         webSocket.sendTXT(clientNum, response);
     }
