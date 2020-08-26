@@ -67,7 +67,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
             // ------------------------------------------------------
             if (msgDecoded.containsKey("serial")) {
                 String serial = msgDecoded["serial"];
-                String response = "{'serial':'" + serial + "'}";
+                String response = "{\"serial\":" + serial + "}";
                 webSocket.sendTXT(num, response);
             }
 

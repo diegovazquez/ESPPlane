@@ -408,15 +408,17 @@ trim.minusControl3BottomVal = function(val) {
 //var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
 var websocket = new WebSocket('ws://192.168.0.191:81/', ['arduino']);
 
+websocket.latencyTestLoopEvery = 500      //Miliseconds
+websocket.latencyTestLoopEnabled = true;
+
 
 websocket.onopen = function () {
-    websocket.send("{'servo1':50}")
+    console.log("WebSocket Connected");
 };
 websocket.onerror = function (error) {
     console.log('WebSocket Error ', error);
 };
 websocket.onmessage = function (e) {
-    console.log(e.data);
     data = JSON.parse(e.data);
 
     if (data.hasOwnProperty("wifiSignalPercentual")){
@@ -426,10 +428,25 @@ websocket.onmessage = function (e) {
       document.getElementById("panelVoltage").innerHTML = data['voltage'];
     }
 
-    //websocket.send(msg);
+    if (data.hasOwnProperty("serial")){
+      currentTime = Date.now().toString().substring(8,99);
+      responceTime = data['serial'];
+      console.log(currentTime, responceTime)
+      latency = Math.round((currentTime - responceTime));
+      document.getElementById("panelLatency").innerHTML = latency;
+    }
 };
 websocket.onclose = function () {
     console.log('WebSocket connection closed');
 };
+
+websocket.latencyTestLoop  = function () {
+  if (websocket.latencyTestLoopEnabled) {
+    currentTime = Date.now().toString().substring(8,99);
+    websocket.send(JSON.stringify({"serial": currentTime}))
+  }
+}
+setInterval(websocket.latencyTestLoop, websocket.latencyTestLoopEvery)
+
 
 //websocket.send("{'servo1':90}");
