@@ -149,6 +149,7 @@ For [WebSockets](https://github.com/Links2004/arduinoWebSockets) (GNU LGPL)
 
 For [Json](https://github.com/bblanchon/ArduinoJson) (MIT Licensed)
 
+https://github.com/wemos/LOLIN_I2C_MOTOR_Library)
 
 # License
 

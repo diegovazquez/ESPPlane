@@ -1,6 +1,8 @@
 #include <WebSocketsServer.h>
 #include <ArduinoJson.h>
 
+
+
 StaticJsonDocument<200> msgDecoded;
 
 WebSocketsServer webSocket(81);    // create a websocket server on port 81
@@ -66,6 +68,17 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
                 servo4val = (servo4val * SERVO4_MAX) / 100;
                 servo4.write(servo4val);
             };
+
+            if (msgDecoded.containsKey("motor1")) {
+                int motor1 = msgDecoded["motor1"];
+                motor.changeDuty(MOTOR_CH_A, motor1);
+            };
+
+            if (msgDecoded.containsKey("motor2")) {
+                int motor2 = msgDecoded["motor2"];
+                motor.changeDuty(MOTOR_CH_B, motor2);
+            };
+            
             // ------------------------------------------------------
             if (msgDecoded.containsKey("serial")) {
                 String serial = msgDecoded["serial"];

@@ -15,4 +15,6 @@ void startServo() { // Start a WebSocket server
     servo2.write(0); 
     servo3.write(0); 
     servo4.write(0); 
+
+    Serial.println("[INFO] Servo Configured");
 }

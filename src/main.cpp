@@ -5,6 +5,7 @@
 /* Modules */
 #include "configuration.h"
 #include "servo.h"
+#include "motor.h"
 #include "wifi.h"
 #include "ota.h"
 #include "websocket.h"
@@ -29,6 +30,9 @@ void setup() {
 
   // Servo
   startServo();
+
+  // Motor
+  startMotor();
 
   // Websocket
   startWebSocket();

@@ -52,7 +52,16 @@ touch.control1 = nipplejs.create({
     zone: document.getElementById('control1'),
     color: 'blue',
     size: 150,
+    maxNumberOfNipples: 1,
     multitouch: true
+});
+
+touch.control1.nippleid = 0
+
+touch.control1.on('added', function (evt, nipple) {
+  nipple.on('start move end dir plain', function (evt) {
+    touch.control1.nippleid = evt.target.id;
+  });
 });
 
 touch.control2 = nipplejs.create({
@@ -60,7 +69,16 @@ touch.control2 = nipplejs.create({
     zone: document.getElementById('control2'),
     color: 'blue',
     size: 150,
+    maxNumberOfNipples: 1,
     multitouch: true
+});
+
+touch.control2.nippleid = 0
+
+touch.control2.on('added', function (evt, nipple) {
+  nipple.on('start move end dir plain', function (evt) {
+    touch.control2.nippleid = evt.target.id;
+  });
 });
 
 /* ------------------------------------------------------------------------------------------ */
@@ -372,7 +390,7 @@ trim.control1TopVal = 0
 trim.control1BottomVal = 0
 trim.control3TopVal = 0
 trim.control3BottomVal = 0
-trim.step = 2
+trim.step = 1
 
 trim.loadFromLocalStorage = function() {
   if (localStorage.getItem('control1TopVal') !== null) {
@@ -519,4 +537,163 @@ websocket.latencyTestLoop  = function () {
 setInterval(websocket.latencyTestLoop, websocket.latencyTestLoopEvery)
 
 
-//websocket.send("{'servo1':90}");
+/* ------------------------------------------------------------------------------------------ */
+// Control
+/* ------------------------------------------------------------------------------------------ */
+
+if (typeof control == "undefined") { control = function() {} }
+
+control.loopEvery = 500;
+
+control.loop = function () {
+  msgToController = {}
+  panel1Vertical = 0
+  panel1Horizontal = 0
+  panel3Vertical = 0
+  panel3Horizontal = 0
+
+  // GET AXIS COORDS
+  if (gamepad.isEnabled) {
+    // GAMEPAD
+    axisValues = false
+    var i;
+    for (i = 0; i < 10; i++) {
+      if (typeof joypad.instances[i] !== "undefined") { 
+        axisValues = joypad.instances[i].axes; 
+        panel1Vertical = tools.cicleCoordsToScuareCoords(axisValues[0], axisValues[1])[1] 
+        panel1Horizontal = tools.cicleCoordsToScuareCoords(axisValues[0], axisValues[1])[0]
+        panel3Vertical = tools.cicleCoordsToScuareCoords(axisValues[2], axisValues[3])[1] 
+        panel3Horizontal = tools.cicleCoordsToScuareCoords(axisValues[2], axisValues[3])[0]
+        break;
+      };
+    }
+  } else {
+    // TOUCH!
+
+    if (touch.control1.get(touch.control1.nippleid).frontPosition !== undefined) {
+      y = (touch.control1.get(touch.control1.nippleid).frontPosition['y'] * 100)/touch.control1.options.size;
+      x = (touch.control1.get(touch.control1.nippleid).frontPosition['x'] * 100)/touch.control1.options.size;
+
+      panel1Vertical = tools.cicleCoordsToScuareCoords((x/50), (y/50))[1];
+      panel1Horizontal = tools.cicleCoordsToScuareCoords((x/50), (y/50))[0];
+    }
+    if (touch.control2.get(touch.control2.nippleid).frontPosition !== undefined) {
+      y = (touch.control2.get(touch.control2.nippleid).frontPosition['y'] * 100)/touch.control2.options.size;
+      x = (touch.control2.get(touch.control2.nippleid).frontPosition['x'] * 100)/touch.control2.options.size;
+
+      panel3Vertical = tools.cicleCoordsToScuareCoords((x/50), (y/50))[1];
+      panel3Horizontal = tools.cicleCoordsToScuareCoords((x/50), (y/50))[0];
+    }
+  }
+  // You will get a value from 1 to -1.
+  //console.log(panel1Horizontal, panel1Vertical, panel3Horizontal, panel3Vertical)
+ 
+  //config.panel1type = 'DifferentialThrust';   // PitchYaw - Thrust - ThrustRoll - DifferentialThrust 
+  if (config.panel1type == 'PitchYaw'){
+    // Control (1 to -1) to servo (100% - 0%)
+    pitchServoValue = Math.round(((panel1Vertical + 1)/2)*100);
+    yawServoValue = Math.round(((panel1Horizontal + 1)/2)*100);
+    // Trim ajustment
+    pitchServoValue = pitchServoValue + trim.control1BottomVal;
+    yawServoValue = yawServoValue + trim.control1TopVal;
+    // Set msg to Controller
+    msgToController['servo' + config.pitchServoNumber] = pitchServoValue;
+    msgToController['servo' + config.yawServoNumber] = yawServoValue;
+  }
+  if (config.panel1type == 'Thrust'){
+    msgToController = {...msgToController, ...control.thrustControlToMsgToController(panel1Vertical) };
+  }
+  if (config.panel1type == 'ThrustRoll'){
+    msgToController = {...msgToController, ...control.thrustControlToMsgToController(panel1Vertical) };
+    //Roll
+    rollServoValue = Math.round(((panel1Horizontal + 1)/2)*100);        // Control (1 to -1) to servo (100% - 0%)
+    rollServoValue = rollServoValue + trim.control1TopVal;              // Trim ajustment
+    msgToController['servo' + config.rollServoNumber] = rollServoValue; // Set msg to Controller
+  }
+  if (config.panel1type == 'DifferentialThrust'){
+    msgToController = {...msgToController, ...control.differentialThrustControlToMsgToController(panel1Vertical, panel1Horizontal) };
+  }
+  // -----------------------------------------------------------------------------------------
+  if (config.panel3type == 'PitchYaw'){
+    // Control (1 to -1) to servo (100% - 0%)
+    pitchServoValue = Math.round(((panel3Vertical + 1)/2)*100);
+    yawServoValue = Math.round(((panel3Horizontal + 1)/2)*100);
+    // Trim ajustment
+    pitchServoValue = pitchServoValue + trim.control3BottomVal;
+    yawServoValue = yawServoValue + trim.control3TopVal;
+    // Set msg to Controller
+    msgToController['servo' + config.pitchServoNumber] = pitchServoValue;
+    msgToController['servo' + config.yawServoNumber] = yawServoValue;
+  }
+  if (config.panel3type == 'Thrust'){
+    msgToController = {...msgToController, ...control.thrustControlToMsgToController(panel3Vertical) };
+  }
+  if (config.panel3type == 'ThrustRoll'){
+    msgToController = {...msgToController, ...control.thrustControlToMsgToController(panel3Vertical) };
+    //Roll
+    rollServoValue = Math.round(((panel3Horizontal + 1)/2)*100);        // Control (1 to -1) to servo (100% - 0%)
+    rollServoValue = rollServoValue + trim.control3TopVal;              // Trim ajustment
+    msgToController['servo' + config.rollServoNumber] = rollServoValue; // Set msg to Controller
+  }
+  if (config.panel3type == 'DifferentialThrust'){
+    msgToController = {...msgToController, ...control.differentialThrustControlToMsgToController(panel3Vertical, panel3Horizontal) };
+  }
+  console.log(msgToController)
+  if (websocket.readyState === WebSocket.OPEN) {
+    websocket.send(JSON.stringify(msgToController))
+  }
+}
+
+control.differentialThrustControlToMsgToController = function (panelVerticalValue, panelHorizontalValue) {
+  thrust = Math.round(((panelVerticalValue + 1))*100);
+  if (thrust > 100){ thrust = 100 };
+  thrust = Math.abs(thrust - 100);
+
+  horizontal = Math.round(panelHorizontalValue*100);        // Control (1 to -1) to servo (100% - 0%)
+
+  if (thrust > 0 ) {
+    if ( horizontal >= 0 ) {
+      horizontal = Math.abs(Math.abs(horizontal) - 100);
+      msgToController['motor' + config.motorRigth] = thrust;
+      msgToController['motor' + config.motorLeft] = Math.round(horizontal * thrust / 100);
+    } else {
+      horizontal = Math.abs(Math.abs(horizontal) - 100);
+      msgToController['motor' + config.motorRigth] = Math.round(horizontal * thrust / 100);
+      msgToController['motor' + config.motorLeft] = thrust;
+    }
+  } else {
+    msgToController['motor1'] = 0;
+    msgToController['motor2'] = 0;
+  }
+  return msgToController;
+}
+
+control.thrustControlToMsgToController = function (panelVerticalValue) {
+  msgToController = {}
+  if (config.motorQuantity == 1){
+    // Thrust - 1 Motor
+    thrustServoValue = Math.round(((panelVerticalValue + 1))*100);
+    if (thrustServoValue > 100){ thrustServoValue = 100 };
+    thrustServoValue = Math.abs(thrustServoValue - 100);
+    msgToController['motor1'] = thrustServoValue;
+  } else {
+    // Thrust - 2 Motor
+    thrustServoValue = Math.round(((panelVerticalValue + 1))*100);
+    if (thrustServoValue > 100){ thrustServoValue = 100 };
+    thrustServoValue = Math.abs(thrustServoValue - 100);
+
+    motor1ServoValue = thrustServoValue + trim.control1TopVal;
+    motor2ServoValue = thrustServoValue + trim.control1BottomVal;
+
+    if (motor1ServoValue > 100){ motor1ServoValue = 100 };
+    if (motor2ServoValue > 100){ motor2ServoValue = 100 };
+    msgToController['motor1'] = thrustServoValue;
+    msgToController['motor2'] = thrustServoValue;
+  }
+  return msgToController;
+}
+
+setInterval(control.loop, control.loopEvery)
+
+
+config.panel1type = 'DifferentialThrust';   // PitchYaw - Thrust - ThrustRoll - DifferentialThrust 
