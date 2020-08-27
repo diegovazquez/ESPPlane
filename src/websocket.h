@@ -32,7 +32,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
             }
             break;
         case WStype_TEXT:                     // if new text data is received
-            Serial.printf("[%u] get Text: %s\n", num, payload);
+            //Serial.printf("[%u] get Text: %s\n", num, payload);
             DeserializationError error = deserializeJson(msgDecoded, payload);
 
             if (error) {
@@ -71,12 +71,12 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
 
             if (msgDecoded.containsKey("motor1")) {
                 int motor1 = msgDecoded["motor1"];
-                motor.changeDuty(MOTOR_CH_A, motor1);
+                M1.setmotor( _CW, motor1);
             };
 
             if (msgDecoded.containsKey("motor2")) {
                 int motor2 = msgDecoded["motor2"];
-                motor.changeDuty(MOTOR_CH_B, motor2);
+                M2.setmotor(_CW, motor2);
             };
             
             // ------------------------------------------------------
@@ -85,7 +85,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
                 String response = "{\"serial\":" + serial + "}";
                 webSocket.sendTXT(num, response);
             }
-
+            Serial.printf("[%u] get Text: %s\n", num, payload);
             break;
     }
 }

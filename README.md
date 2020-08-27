@@ -55,6 +55,13 @@ Tools list:
 ![diagrams](doc/diagram_components.png)
 ![diagrams](doc/diagram.png)
 
+NOTE: Wemos Motor Shield V1 needs soldering
+
+![photo](doc/300px-Motorshield_600.jpg)  
+
+Also, you can improve stability flashing new firmware (see [link](https://www.letscontrolit.com/wiki/index.php/WemosMotorshield))
+
+
 ## **Install Firmware to ESP8266**
 
 1. Install CH340G Serial Driver - [Windows](https://www.instructables.com/id/Instalar-driver-para-CH340G/) - [Mac](https://kig.re/2014/12/31/how-to-use-arduino-nano-mini-pro-with-CH340G-on-mac-osx-yosemite.html) - Included in linux
@@ -149,7 +156,7 @@ For [WebSockets](https://github.com/Links2004/arduinoWebSockets) (GNU LGPL)
 
 For [Json](https://github.com/bblanchon/ArduinoJson) (MIT Licensed)
 
-https://github.com/wemos/LOLIN_I2C_MOTOR_Library)
+For [WEMOS Motor Shield](https://github.com/wemos/WEMOS_Motor_Shield_Arduino_Library/tree/master/src)
 
 # License
 

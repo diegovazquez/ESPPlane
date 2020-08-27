@@ -543,7 +543,7 @@ setInterval(websocket.latencyTestLoop, websocket.latencyTestLoopEvery)
 
 if (typeof control == "undefined") { control = function() {} }
 
-control.loopEvery = 500;
+control.loopEvery = 100;
 
 control.loop = function () {
   msgToController = {}

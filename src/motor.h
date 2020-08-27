@@ -1,13 +1,14 @@
 #include <Wire.h>
-#include <LOLIN_I2C_MOTOR.h>
+#include "WEMOS_Motor.h"
 
-LOLIN_I2C_MOTOR motor;
+int pwm;
+Motor M1(0x30,_MOTOR_A, 1000);//Motor A
+Motor M2(0x30,_MOTOR_B, 1000);//Motor B
+
 
 void startMotor() {
-    motor.changeFreq(MOTOR_CH_BOTH, 1000);    
+    Serial.println("[INFO] Starting motor shield configuration");
 
-    motor.changeStatus(MOTOR_CH_A, MOTOR_STATUS_CW);
-    motor.changeStatus(MOTOR_CH_B, MOTOR_STATUS_CW);
-
-    Serial.println("[INFO] Motor Configured");
+    M1.setmotor(_STOP);
+    M2.setmotor(_STOP);
 }
