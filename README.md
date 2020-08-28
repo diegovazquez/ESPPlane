@@ -2,7 +2,7 @@
 
 This proyect is barely tested.
 
-Link to test video:  
+2020-8-27 - Link to the first test video:  
 [![photo](https://img.youtube.com/vi/WjfS1mgWrTk/0.jpg)](http://www.youtube.com/watch?v=WjfS1mgWrTk)
 
 # ESP8266 Plane
@@ -111,6 +111,17 @@ Example:
         #define WIFI_MODE           "AP"     
         #define WIFI_NAME           "PLANE"      
         #define WIFI_PASS           "12345678"  
+
+
+**MAP Servo to ESP8266 OUTPUT**
+
+        #define SERVO1_PIN          14  // Wemos D5  
+        #define SERVO2_PIN          12  // Wemos D6
+        #define SERVO3_PIN          13  // Wemos D7
+        #define SERVO4_PIN          15  // Wemos D8
+
+![photo](doc/diagram_wemos_d1_mini_diagram.jpg) 
+
 
 ## Control
 
