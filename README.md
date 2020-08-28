@@ -58,11 +58,28 @@ Tools list:
 ![diagrams](doc/diagram_components.png)
 ![diagrams](doc/diagram.png)
 
-NOTE: Wemos Motor Shield V1 needs soldering
+**Wemos Motor Shield**
+
+Wemos Motor Shield V2 dont need changes.  
+
+Wemos Motor Shield V1 needs soldering.
 
 ![photo](doc/300px-Motorshield_600.jpg)  
 
-Also, you can improve stability flashing new firmware (see [link](https://www.letscontrolit.com/wiki/index.php/WemosMotorshield))
+Also, you need improve stability flashing new firmware, for dat you need a USB TTL Programer, and connect the motor shield to a PC
+
+![photo](doc/wemos_motor_shield_flash.png)  
+
+Then you need execute the flash commands for linux
+
+        cd /tmp
+        sudo apt install stm32flash
+        wget https://cdn.hackaday.io/files/18439788894176/motor_shield.bin
+        stm32flash /dev/ttyUSB0
+        stm32flash -k /dev/ttyUSB0
+        stm32flash -f -v -w motor_shield.bin /dev/ttyUSB0
+
+For mac or windows see [link](https://www.letscontrolit.com/wiki/index.php/WemosMotorshield)
 
 
 ## **Install Firmware to ESP8266**
