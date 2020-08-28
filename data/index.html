@@ -251,6 +251,8 @@
   if (typeof config == "undefined") { config = function() {} }
 
   // Config
+  //config.websocketUrl = 'ws://192.168.0.191:81/'
+  config.websocketUrl = 'ws://' + location.hostname + ':81/';
   
   // Gamepad
   config.gamepadAxis12FeedbackStyle = 'PowerStick';   // Circle - Square - PowerStick

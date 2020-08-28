@@ -483,8 +483,7 @@ trim.minusControl3BottomVal = function(val) {
 // WebSocket
 /* ------------------------------------------------------------------------------------------ */
 
-//var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
-var websocket = new WebSocket('ws://192.168.0.191:81/', ['arduino']);
+var websocket = new WebSocket(config.websocketUrl, ['arduino']);
 
 websocket.latencyTestLoopEvery = 500      //Miliseconds
 websocket.latencyTestLoopEnabled = false;
