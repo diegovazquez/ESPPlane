@@ -191,7 +191,11 @@ Options: PitchYaw - Thrust - ThrustRoll - DifferentialThrust
 * ***PitchYaw***: Horizontal Sevo Pitch - Vertical Servo Yaw
 * ***Thrust***: Vertical motor intensity
 * ***ThrustRoll***: Horizontal Sevo Roll - Vertical motor intensity  
-* ***DifferentialThrust***: Vertical motor intensity - Horizontal Motor proportion (Only 2 motors)
+* ***DifferentialThrust***: Vertical motor intensity - Horizontal Motor proportion (Only 2 motors)  
+
+![photo](doc/Orientation-of-axes-on-airplane.png)  
+![photo](doc/differential_thrust.png)  
+
 
 **Plane Motor Quantity** 
 
