@@ -1,6 +1,9 @@
 # WARNING | THIS IS A WORK IN PROGRESS! 
 
-This proyect is a work in progress (NOT WORKING, yet)
+This proyect is barely tested.
+
+Link to test video:  
+[![photo](https://img.youtube.com/vi/WjfS1mgWrTk/0.jpg)](http://www.youtube.com/watch?v=WjfS1mgWrTk)
 
 # ESP8266 Plane
 
