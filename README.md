@@ -124,6 +124,15 @@ Vertical Control
 
 ## Javascript Configuration
 
+**Websocker URL**
+  
+        config.websocketUrl = 'ws://' + location.hostname + ':81/';
+
+If you use and external web or a proxt, you can specify the IP and port manually.
+
+        config.websocketUrl = 'ws://192.168.0.191:81/'
+
+
 **GamePad Axis Feedback configuration**
 
         config.gamepadAxis12FeedbackStyle = 'PowerStick';   
@@ -161,6 +170,52 @@ Options: Percentual - dBm
 
 Links : [Wifi Singal Streng Explained](https://eyesaas.com/wi-fi-signal-strength/#:~:text=Wireless%20signal%20strength%20is%20measured,expressed%20only%20as%20negative%20values.&text=Maximum%20signal%20strength%2C%20you%20are,be%20considered%20excellent%20signal%20strength.)
 
+**Plane control type** 
+
+        config.panel1type = 'DifferentialThrust';   
+        config.panel3type = 'PitchYaw';
+
+Options: PitchYaw - Thrust - ThrustRoll - DifferentialThrust 
+
+* ***PitchYaw***: Horizontal Sevo Pitch - Vertical Servo Yaw
+* ***Thrust***: Vertical motor intensity
+* ***ThrustRoll***: Horizontal Sevo Roll - Vertical motor intensity  
+* ***DifferentialThrust***: Vertical motor intensity - Horizontal Motor proportion (Only 2 motors)
+
+**Plane Motor Quantity** 
+
+1 or 2 motors supported
+
+        config.motorQuantity = 1;
+
+**Motor plane location**
+
+You can invert the motor location in software.
+
+        config.motorRigth = 1; 
+        config.motorLeft = 2;
+
+Options: 1 or 2
+  
+**Motor rotation**
+
+        config.motor1orientation = "CounterClockwise";    
+        config.motor2orientation = "CounterClockwise"; 
+
+Options: Clockwise - CounterClockwise
+
+**Servo max angle value**
+
+        config.servo1maxValue = 180;
+        config.servo2maxValue = 180;
+        config.servo3maxValue = 180;
+        config.servo4maxValue = 180;
+
+**Servo function**
+
+        config.pitchServoNumber = 1;  
+        config.rollServoNumber = 2;     
+        config.yawServoNumber = 3;
 
 # Libraries 
 
