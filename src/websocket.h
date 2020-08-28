@@ -47,36 +47,47 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
 
             if (msgDecoded.containsKey("servo1")) {
                 int servo1val = msgDecoded["servo1"];
-                servo1val = (servo1val * SERVO1_MAX) / 100;
+                int servo1maxValue = msgDecoded["servo1maxValue"];
+                servo1val = (servo1val * servo1maxValue) / 100;
                 servo1.write(servo1val);
             };
 
             if (msgDecoded.containsKey("servo2")) {
                 int servo2val = msgDecoded["servo2"];
-                servo2val = (servo2val * SERVO2_MAX) / 100;
+                int servo2maxValue = msgDecoded["servo2maxValue"];
+
+                servo2val = (servo2val * servo2maxValue) / 100;
                 servo2.write(servo2val);
             };
 
             if (msgDecoded.containsKey("servo1")) {
                 int servo3val = msgDecoded["servo3"];
-                servo3val = (servo3val * SERVO3_MAX) / 100;
+                int servo3maxValue = msgDecoded["servo3maxValue"];
+
+                servo3val = (servo3val * servo3maxValue) / 100;
                 servo3.write(servo3val);
             };
 
             if (msgDecoded.containsKey("servo4")) {
                 int servo4val = msgDecoded["servo4"];
-                servo4val = (servo4val * SERVO4_MAX) / 100;
+                int servo4maxValue = msgDecoded["servo4maxValue"];
+
+                servo4val = (servo4val * servo4maxValue) / 100;
                 servo4.write(servo4val);
             };
 
             if (msgDecoded.containsKey("motor1")) {
                 int motor1 = msgDecoded["motor1"];
-                M1.setmotor( _CW, motor1);
+                String motor1orientation = msgDecoded["motor1orientation"];
+                if ( motor1orientation = "Clockwise" ) { M1.setmotor(_CW, motor1); };
+                if ( motor1orientation = "CounterClockwise" ) { M1.setmotor(_CCW, motor1); };
             };
 
             if (msgDecoded.containsKey("motor2")) {
                 int motor2 = msgDecoded["motor2"];
-                M2.setmotor(_CW, motor2);
+                String motor2orientation = msgDecoded["motor2orientation"];
+                if ( motor2orientation = "Clockwise" ) { M2.setmotor(_CW, motor2); };
+                if ( motor2orientation = "CounterClockwise" ) { M2.setmotor(_CCW, motor2); };
             };
             
             // ------------------------------------------------------

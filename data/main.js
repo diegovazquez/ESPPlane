@@ -638,7 +638,16 @@ control.loop = function () {
   if (config.panel3type == 'DifferentialThrust'){
     msgToController = {...msgToController, ...control.differentialThrustControlToMsgToController(panel3Vertical, panel3Horizontal) };
   }
-  console.log(msgToController)
+
+  msgToController['motor1orientation'] = config.motor1orientation;
+  msgToController['motor2orientation'] = config.motor2orientation;
+  
+  msgToController['servo1maxValue'] = config.servo1maxValue;
+  msgToController['servo2maxValue'] = config.servo2maxValue;
+  msgToController['servo3maxValue'] = config.servo3maxValue;
+  msgToController['servo4maxValue'] = config.servo4maxValue;
+
+  //onsole.log(msgToController)
   if (websocket.readyState === WebSocket.OPEN) {
     websocket.send(JSON.stringify(msgToController))
   }
