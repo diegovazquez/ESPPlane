@@ -60,7 +60,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
                 servo2.write(servo2val);
             };
 
-            if (msgDecoded.containsKey("servo1")) {
+            if (msgDecoded.containsKey("servo3")) {
                 int servo3val = msgDecoded["servo3"];
                 int servo3maxValue = msgDecoded["servo3maxValue"];
 
@@ -79,15 +79,15 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
             if (msgDecoded.containsKey("motor1")) {
                 int motor1 = msgDecoded["motor1"];
                 String motor1orientation = msgDecoded["motor1orientation"];
-                if ( motor1orientation = "Clockwise" ) { M1.setmotor(_CW, motor1); };
-                if ( motor1orientation = "CounterClockwise" ) { M1.setmotor(_CCW, motor1); };
+                if ( motor1orientation == "Clockwise" ) { M1.setmotor(_CW, motor1); };
+                if ( motor1orientation == "CounterClockwise" ) { M1.setmotor(_CCW, motor1); };
             };
 
             if (msgDecoded.containsKey("motor2")) {
                 int motor2 = msgDecoded["motor2"];
                 String motor2orientation = msgDecoded["motor2orientation"];
-                if ( motor2orientation = "Clockwise" ) { M2.setmotor(_CW, motor2); };
-                if ( motor2orientation = "CounterClockwise" ) { M2.setmotor(_CCW, motor2); };
+                if ( motor2orientation == "Clockwise" ) { M2.setmotor(_CW, motor2); };
+                if ( motor2orientation == "CounterClockwise" ) { M2.setmotor(_CCW, motor2); };
             };
             
             // ------------------------------------------------------
